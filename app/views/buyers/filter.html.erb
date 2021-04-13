@@ -1,3 +1,18 @@
-<% @services.each do |service| %>
-    <%= service.name %>
-<% end %>
+<table>
+  <thead>
+    <tr> 
+      <th> Title </th>
+      <th> Price </th>
+      <th> location </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @services.each do |service| %> 
+    <tr>
+      <td> <%= link_to service.name, service_path(id: service.id) %> </td>
+      <td> <%= service.price %> </td>
+      <td> <%= service.location %> </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
