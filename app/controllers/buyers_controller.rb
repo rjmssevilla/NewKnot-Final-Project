@@ -14,5 +14,6 @@ class BuyersController < ApplicationController
   end
 
   def profile
+    @buyer = Buyer.find(params[:id])
   end
 end
