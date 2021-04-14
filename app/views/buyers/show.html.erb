@@ -1,19 +1,23 @@
 <h1>HELLO, <%=@buyer.first_name %> <%=@buyer.last_name %></h1>
 
+<%= link_to 'My Profile', buyers_profile_path(current_buyer.id) %>
+
 <h1> Categories </h1>
 
 <table>
   <thead>
     <tr>
       <th> Category </th>
-      <th> Number of available Services </th>
+      <th> Number of Services </th>
+      <th> Average Price (PHP) </th>
     </tr>
   </thead>
   <tbody>
-  <% @categories_count.each do |category| %>
+  <% @categories_array.each do |category| %>
     <tr>
       <td> <%= link_to category[:category], category_filter_path(category: category[:category]) %> </td>
       <td> <%= category[:count] %> </td>
+      <td> <%= category[:average_price] %>
     </tr>
   </tbody>
   <% end %>

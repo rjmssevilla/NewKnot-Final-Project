@@ -1,0 +1,41 @@
+<h1> Welcome to your profile, <%= @buyer.first_name %> </h1>
+
+<%= link_to 'Back', buyer_path(id: current_buyer.id) %>
+<%= link_to 'Edit your profile', edit_buyer_registration_path %>
+
+<h3> Transactions </h3>
+<table>
+  <thead>
+    <tr> 
+      <th> Service Name </th>
+      <th> Owner </th>
+      <th> Contact Number </th>
+      <th> Company Name </th>
+      <th> Category </th>
+      <th> Price </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @services.each do |service| %> 
+    <tr>
+      <td> <%= link_to service.name, service_path(id: service.id) %> </td>
+      <td> <%= service.supplier.first_name %> </td>
+      <td> <%= service.supplier.contact_number %> </td>
+      <td> <%= service.supplier.company_name %> </td>
+      <td> <%= service.category %> </td>
+      <td> <%= service.price %> </td>
+    </tr>
+    <% end %>
+    <tr></tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>  Total Price: </td>
+      <td> <%= @total %> </td>
+    </tr>
+  </tbody>
+</table>
+
+<%= link_to "Go back", :back %>
