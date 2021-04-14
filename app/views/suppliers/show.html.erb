@@ -1,6 +1,5 @@
-<h1>HELLO, <%=@supplier.first_name %> <%=@supplier.last_name %></h1>
-
 <% if supplier_signed_in? %>
+<h1>HELLO, <%=@supplier.first_name %> <%=@supplier.last_name %></h1>
 <h3>Publish a Service</h3>
 <hr>
 <%= form_with model: [ @supplier, @supplier.services.build ] do |form| %>
@@ -27,8 +26,6 @@
   
   <%= form.submit %>
 <% end %>
-<% end %>
-
 
 <h3>Services</h3>
 <table>
@@ -51,6 +48,7 @@
       <td><%= service.id %></td>
       <td><%= link_to "Edit service", edit_service_path(service_id: service.id) %></td>
       <td><%= link_to "Show service", service_path(service_id: service.id) %></td>
+      <td><%= link_to "Delete service", service_path(service_id: service.id), method: :delete %></td>
     </tr>
   </tbody>
 <% end %>
@@ -58,3 +56,34 @@
 
 
 <%= link_to 'Logout',  destroy_supplier_session_path, method: :delete %>
+<% end %>
+
+<% if buyer_signed_in? %>
+
+<h1> Welcome to <%= @supplier.first_name %> <%= @supplier.last_name %>'s page! </h1>
+
+<h3>Services</h3>
+<table>
+<thead>
+  <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Price</th>
+    <th scope="col">Category</th>
+    <th scope="col">Location</th>
+  </tr>
+</thead>
+<% @services.each do |service| %>
+  <tbody>
+    <tr>
+      <td><%= service.name %></td>
+      <td><%= service.price %></td>
+      <td><%= service.category %></td>
+      <td><%= service.location %></td>
+      <td><%= link_to "Show service", service_path(service_id: service.id) %></td>
+    </tr>
+  </tbody>
+<% end %>
+</table>
+
+<%= link_to "Go back", :back %>
+<% end %>

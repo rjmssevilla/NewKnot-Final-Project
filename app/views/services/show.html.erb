@@ -3,8 +3,7 @@
 <h5><%= @service.category %></h5>
 <h5><%= @service.supplier.first_name %><%= @service.supplier.last_name %></h5>
 <h5><%= @service.supplier.contact_number %></h5>
-<h5><%= link_to @service.supplier.company_name, @supplier %></h5>
-
+<h5><%= link_to @service.supplier.company_name, supplier_path(id: @service.supplier.id) %></h5>
 
 <h3>Reviews</h3>
 <table>
@@ -15,6 +14,9 @@
     <th scope="col">Body</th>
     <th scope="col">Rating</th>
     <th scope="col">Buyer Name</th>
+    <% if buyer_signed_in? %>
+    <th scope="col"><%= link_to "Create a review", new_service_review_path(service_id: @service.id) %></th>
+    <% end %>
   </tr>
 </thead>
 <% @reviews.each do |review| %>
@@ -25,11 +27,17 @@
       <td><%= review.body %></td>
       <td><%= review.rating %></td>
       <td><%= review.buyer.first_name %></td>
+      <% if buyer_signed_in? %>
+      <% if current_buyer.id == review.buyer_id %>
+      <td><%= link_to "Edit Review", edit_review_path(id: review.id) %></td>
+      <td><%= link_to "Delete Review", review_path(id: review.id), method: :delete %></td>
+      <% end %>
+      <% end %>
     </tr>
   </tbody>
 <% end %>
 </table>
 
 <div>
-  <%= link_to "Go back", @supplier %>
+  <%= link_to "Go back", :back %>
 </div>

@@ -34,7 +34,7 @@ RSpec.describe 'Reviews', type: :request do
   describe 'PUT /reviews#update' do
     it 'works! review was updated' do
       put review_path(review), params: { review: { title: 'Yey!', body: 'Testing complete?', rating: 3 } }
-      expect(response).to redirect_to service_reviews_path(service_id: review.service_id)
+      expect(response).to have_http_status(:redirect)
     end
   end
 
