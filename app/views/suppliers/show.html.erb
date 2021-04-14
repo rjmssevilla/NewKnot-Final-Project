@@ -1,5 +1,6 @@
 <h1>HELLO, <%=@supplier.first_name %> <%=@supplier.last_name %></h1>
 
+<% if supplier_signed_in? %>
 <h3>Publish a Service</h3>
 <hr>
 <%= form_with model: [ @supplier, @supplier.services.build ] do |form| %>
@@ -15,7 +16,7 @@
   
   <div class="form-group">
     <%= form.label :category %>
-    <%= form.text_field :category %>
+    <%= form.select :category, Service::VALID_CATEGORIES %>
   </div>
   
   <div class="form-group">
@@ -26,13 +27,13 @@
   
   <%= form.submit %>
 <% end %>
+<% end %>
 
 
 <h3>Services</h3>
 <table>
 <thead>
   <tr>
-    <th scope="col"></th>
     <th scope="col">Name</th>
     <th scope="col">Price</th>
     <th scope="col">Category</th>
@@ -43,19 +44,17 @@
 <% @services.each do |service| %>
   <tbody>
     <tr>
-      <td scope="row"></td>
       <td><%= service.name %></td>
       <td><%= service.price %></td>
       <td><%= service.category %></td>
       <td><%= service.location %></td>
       <td><%= service.id %></td>
       <td><%= link_to "Edit service", edit_service_path(service_id: service.id) %></td>
+      <td><%= link_to "Show service", service_path(service_id: service.id) %></td>
     </tr>
   </tbody>
 <% end %>
 </table>
-
-
 
 
 <%= link_to 'Logout',  destroy_supplier_session_path, method: :delete %>
