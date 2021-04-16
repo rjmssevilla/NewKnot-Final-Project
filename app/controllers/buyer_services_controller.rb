@@ -3,6 +3,12 @@ class BuyerServicesController < ApplicationController
     @service = Service.find(params[:id])
     @buyer = current_buyer
     @buyer.services << @service
-    redirect_to buyer_path(id: current_buyer.id)
+    redirect_to buyers_profile_path(id: current_buyer.id)
+  end
+
+  def destroy
+    @service = BuyerService.find(params[:id])
+    @service.destroy
+    redirect_to buyers_profile_path(id: current_buyer.id)
   end
 end

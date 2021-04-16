@@ -1,2 +1,11 @@
-%h1 Reviews#edit
-%p Find me in app/views/reviews/edit.html.haml
+<%= form_with method: :put, scope: :review, url: review_path, local:true do |form| %>
+  <%= form.label :title %>
+  <%= form.text_field :title %>
+  <%= form.label :body %>
+  <%= form.text_field :body %>
+  <%= form.label :rating %>
+  <%= form.text_field :rating %>
+  <%= form.submit %>
+<% end %>
+
+<%= link_to "Go back", :back %>

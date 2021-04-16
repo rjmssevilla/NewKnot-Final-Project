@@ -11,7 +11,7 @@ class ReviewsController < ApplicationController
   def edit
     @review = Review.find(params[:id])
     if review_owned_by_buyer?
-      @review = Review.find(params[:service_id])
+      @review = Review.find(params[:id])
     else
       flash[:alert] = "You cannot edit someone else's review."
       render :index
@@ -22,7 +22,7 @@ class ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     if @review.update(review_params)
       flash[:notice] = 'Your review has been updated!'
-      redirect_to_index
+      redirect_to_service
     else
       flash[:alert] = @review.errors.full_messages
       render :index
@@ -35,7 +35,7 @@ class ReviewsController < ApplicationController
     @review.buyer_id = current_buyer.id
     if @review.save
       flash[:notice] = 'Your review has been posted.'
-      redirect_to_index
+      redirect_to_service
     else
       flash.now[:alert] = @review.errors.full_messages
       render :new
@@ -48,7 +48,7 @@ class ReviewsController < ApplicationController
     return unless review_owned_by_buyer?
 
     @review.destroy
-    redirect_to_index
+    redirect_to_service
     flash[:alert] = 'Review has been deleted!'
   end
 
@@ -60,6 +60,10 @@ class ReviewsController < ApplicationController
 
   def review_owned_by_buyer?
     @review.buyer_id == current_buyer.id
+  end
+
+  def redirect_to_service
+    redirect_to service_path(service_id: @review.service_id, id: @review.service_id)
   end
 
   def review_params
