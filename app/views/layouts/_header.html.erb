@@ -1,0 +1,75 @@
+<%= stylesheet_link_tag 'header.css' %>
+<nav class="navbar-custom navbar navbar-light navbar-expand-md bg-faded justify-content-center fixed-top">
+    <h1 class="navbar-brand d-flex w-50 mr-auto">NewKnot</h1>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
+        <ul class="navbar-nav w-100 justify-content-center">
+            <% if buyer_signed_in? %>
+                <li class="nav-item active">
+                    <a class="nav-item"> <%= link_to "Profile", buyer_path(current_buyer), class: "nav-link" %></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-item"> <%= link_to "Transactions", buyer_path(current_buyer), class: "nav-link" %></a>
+                </li>
+            <% elsif supplier_signed_in? %>
+                <li class="nav-item active">
+                    <a class="nav-item"> <%= link_to "Profile", supplier_path(current_supplier), class: "nav-link" %></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-item"> <%= link_to "Transactions", supplier_path(current_supplier), class: "nav-link" %></a>
+                </li>
+            <% elsif admin_signed_in? %>
+            <li class="nav-item active">
+                <a class="nav-item"> <%= link_to "Profile", admins_path, class: "nav-link" %></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-item"> <%= link_to "For Approval", pending_supplier_signup_admin_path, class: "nav-link" %></a>
+            </li>
+            <% else %>
+                <li class="nav-item active">
+                    <a class="nav-item"> <%= link_to "Home", root_path, class: "nav-link" %></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#services">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact Us</a>
+                </li>
+            <% end %>
+            
+        </ul>
+        <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+            <% if buyer_signed_in? %>
+                <li class="nav-item">
+                    <a class="nav-item"> <%= link_to "Edit Profile", edit_buyer_registration_path, class: "nav-link" %></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item"> <%= link_to "Logout", destroy_buyer_session_path, method: :delete, class: "nav-link" %></a>
+                </li>
+            <% elsif supplier_signed_in? %>
+            <li class="nav-item">
+                <a class="nav-item"> <%= link_to "Edit Profile", edit_supplier_registration_path, class: "nav-link" %></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-item"> <%= link_to "Logout", destroy_supplier_session_path, method: :delete, class: "nav-link" %></a>
+            </li>
+            <% elsif admin_signed_in? %>
+            <li class="nav-item">
+                <a class="nav-item"> <%= link_to "Logout", destroy_admin_session_path, method: :delete, class: "nav-link" %></a>
+            </li>
+            <% else %>
+                <li class="nav-item">
+                        <a class="nav-item"> <%= link_to "Become a supplier", new_supplier_registration_path, class: "nav-link" %></a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-item"> <%= link_to "Login", new_buyer_session_path, class: "nav-link" %></a>
+                </li>
+            <% end %>
+        </ul>
+    </div>
+</nav>
