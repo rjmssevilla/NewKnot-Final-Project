@@ -1,0 +1,21 @@
+.navbar-custom {
+  background-color: lightgreen;
+}
+
+.navbar-custom{
+  margin-bottom: 20px !important;
+}
+
+.navbar-nav li {
+  color: #888;
+  display: inline-block;
+  border-radius: 20px;
+  -webkit-transition: all .8s; /* Safari prior 6.1 */
+  transition: all .8s;
+}
+
+.navbar-nav li:hover{
+  background-color: rgba(101, 179, 142, 1);
+  color: #fff;
+  cursor: pointer;
+}
