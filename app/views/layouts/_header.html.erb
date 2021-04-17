@@ -8,10 +8,10 @@
         <ul class="navbar-nav w-100 justify-content-center">
             <% if buyer_signed_in? %>
                 <li class="nav-item active">
-                    <a class="nav-item"> <%= link_to "Profile", buyer_path(current_buyer), class: "nav-link" %></a>
+                    <a class="nav-item"> <%= link_to "Home", buyer_path(current_buyer), class: "nav-link" %></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-item"> <%= link_to "Transactions", buyer_path(current_buyer), class: "nav-link" %></a>
+                    <a class="nav-item"> <%= link_to "Profile", buyers_profile_path(current_buyer.id), class: "nav-link" %></a>
                 </li>
             <% elsif supplier_signed_in? %>
                 <li class="nav-item active">
