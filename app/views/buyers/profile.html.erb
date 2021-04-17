@@ -1,41 +1,53 @@
-<h1> Welcome to your profile, <%= @buyer.first_name %> </h1>
+<div class="container-fluid">
 
-<%= link_to 'Back', buyer_path(id: current_buyer.id) %>
+<h1 class="h3 mb-2 text-gray-800"> Welcome to your profile, <%= @buyer.first_name %> </h1>
+
 <%= link_to 'Edit your profile', edit_buyer_registration_path %>
 
-<h3> Transactions </h3>
-<table>
-  <thead>
-    <tr> 
-      <th> Service Name </th>
-      <th> Owner </th>
-      <th> Contact Number </th>
-      <th> Company Name </th>
-      <th> Category </th>
-      <th> Price </th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @services.each do |service| %> 
-    <tr>
-      <td> <%= link_to service.name, service_path(id: service.id) %> </td>
-      <td> <%= service.supplier.first_name %> </td>
-      <td> <%= service.supplier.contact_number %> </td>
-      <td> <%= service.supplier.company_name %> </td>
-      <td> <%= service.category %> </td>
-      <td> <%= service.price %> </td>
-    </tr>
-    <% end %>
-    <tr></tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>  Total Price: </td>
-      <td> <%= @total %> </td>
-    </tr>
-  </tbody>
-</table>
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-dark"> Transactions </h6>
+    </div>
 
-<%= link_to "Go back", :back %>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr> 
+              <th> Service Name </th>
+              <th> Owner </th>
+              <th> Contact Number </th>
+              <th> Company Name </th>
+              <th> Category </th>
+              <th> Price </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @services.each do |service| %> 
+            <tr>
+              <td> <%= link_to service.name, service_path(service_id: service.id) %> </td>
+              <td> <%= service.supplier.first_name %> </td>
+              <td> <%= service.supplier.contact_number %> </td>
+              <td> <%= service.supplier.company_name %> </td>
+              <td> <%= service.category %> </td>
+              <td> <%= service.price %> </td>
+            </tr>
+            <% end %>
+            <tr></tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>  Total Price: </td>
+              <td> <%= @total %> </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<%= link_to "Go back", :back, class: "btn btn-secondary btn-icon-split" %>
+
+</div>

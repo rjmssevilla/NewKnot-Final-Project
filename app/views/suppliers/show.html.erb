@@ -1,89 +1,106 @@
+<div class="container-fluid">
 <% if supplier_signed_in? %>
-<h1>HELLO, <%=@supplier.first_name %> <%=@supplier.last_name %></h1>
-<h3>Publish a Service</h3>
-<hr>
-<%= form_with model: [ @supplier, @supplier.services.build ] do |form| %>
-  <div class="form-group">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-  
-  <div class="form-group">
-    <%= form.label :price %>
-    <%= form.text_field :price %>
-  </div>
-  
-  <div class="form-group">
-    <%= form.label :category %>
-    <%= form.select :category, Service::VALID_CATEGORIES %>
-  </div>
-  
-  <div class="form-group">
-    <%= form.label :location %>
-    <%= form.text_field :location %>
-  </div>
+  <h1 class="h3 mb-2 text-gray-800">HELLO, <%=@supplier.first_name %> <%=@supplier.last_name %></h1>
+  <h3 class="h3 mb-2 text-gray-800">Publish a Service</h3>
+  <hr>
+  <%= form_with model: [ @supplier, @supplier.services.build ] do |form| %>
+    <div class="form-group">
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+    </div>
+    
+    <div class="form-group">
+      <%= form.label :price %>
+      <%= form.text_field :price %>
+    </div>
+    
+    <div class="form-group">
+      <%= form.label :category %>
+      <%= form.select :category, Service::VALID_CATEGORIES %>
+    </div>
+    
+    <div class="form-group">
+      <%= form.label :location %>
+      <%= form.text_field :location %>
+    </div>
 
-  
-  <%= form.submit %>
-<% end %>
+    
+    <%= form.submit %>
+  <% end %>
 
-<h3>Services</h3>
-<table>
-<thead>
-  <tr>
-    <th scope="col">Name</th>
-    <th scope="col">Price</th>
-    <th scope="col">Category</th>
-    <th scope="col">Location</th>
-    <th scope="col">Service Id</th>
-  </tr>
-</thead>
-<% @services.each do |service| %>
-  <tbody>
-    <tr>
-      <td><%= service.name %></td>
-      <td><%= service.price %></td>
-      <td><%= service.category %></td>
-      <td><%= service.location %></td>
-      <td><%= service.id %></td>
-      <td><%= link_to "Edit service", edit_service_path(service_id: service.id) %></td>
-      <td><%= link_to "Show service", service_path(service_id: service.id) %></td>
-      <td><%= link_to "Delete service", service_path(service_id: service.id), method: :delete %></td>
-    </tr>
-  </tbody>
-<% end %>
-</table>
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-dark"> Services </h6>
+    </div>
 
-
-<%= link_to 'Logout',  destroy_supplier_session_path, method: :delete %>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Price</th>
+              <th scope="col">Category</th>
+              <th scope="col">Location</th>
+              <th scope="col">Service Id</th>
+            </tr>
+          </thead>
+          <% @services.each do |service| %>
+          <tbody>
+            <tr>
+              <td><%= service.name %></td>
+              <td><%= service.price %></td>
+              <td><%= service.category %></td>
+              <td><%= service.location %></td>
+              <td><%= service.id %></td>
+              <td><%= link_to "Edit service", edit_service_path(service_id: service.id) %></td>
+              <td><%= link_to "Show service", service_path(service_id: service.id) %></td>
+              <td><%= link_to "Delete service", service_path(service_id: service.id), method: :delete %></td>
+            </tr>
+          </tbody>
+        <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+  <%= link_to 'Logout',  destroy_supplier_session_path, method: :delete %>
 <% end %>
 
 <% if buyer_signed_in? %>
 
-<h1> Welcome to <%= @supplier.first_name %> <%= @supplier.last_name %>'s page! </h1>
+<h1 class="h3 mb-2 text-gray-800"> Welcome to <%= @supplier.first_name %> <%= @supplier.last_name %>'s page! </h1>
 
-<h3>Services</h3>
-<table>
-<thead>
-  <tr>
-    <th scope="col">Name</th>
-    <th scope="col">Price</th>
-    <th scope="col">Category</th>
-    <th scope="col">Location</th>
-  </tr>
-</thead>
-<% @services.each do |service| %>
-  <tbody>
-    <tr>
-      <td><%= service.name %></td>
-      <td><%= service.price %></td>
-      <td><%= service.category %></td>
-      <td><%= service.location %></td>
-      <td><%= link_to "Show service", service_path(service_id: service.id) %></td>
-    </tr>
-  </tbody>
-<% end %>
-</table>
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-dark"> Services </h6>
+    </div>
 
-<%= link_to "Go back", :back %>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Price</th>
+              <th scope="col">Category</th>
+              <th scope="col">Location</th>
+            </tr>
+          </thead>
+          <% @services.each do |service| %>
+          <tbody>
+            <tr>
+              <td><%= link_to service.name, service_path(service_id: service.id) %></td>
+              <td><%= service.price %></td>
+              <td><%= service.category %></td>
+              <td><%= service.location %></td>
+            </tr>
+          </tbody>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+  <%= link_to "Go back", :back, class: "btn btn-secondary btn-icon-split" %>
 <% end %>
+
+</div>

@@ -1,26 +1,37 @@
-<h1> <%= @unique_category %> </h1>
+<div class="container-fluid">
 
-<%= link_to 'Back', buyer_path(id: current_buyer.id) %>
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-dark"> <%= @unique_category %> </h6>
+    </div>
 
-<table>
-  <thead>
-    <tr> 
-      <th> Title </th>
-      <th> Price </th>
-      <th> location </th>
-      <th> Supplier </th>
-      <th> Avg. Rating </th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @services.each do |service| %> 
-    <tr>
-      <td> <%= link_to service.name, service_path(id: service.id, service_id: service.id) %> </td>
-      <td> <%= service.price %> </td>
-      <td> <%= service.location %> </td>
-      <td> <%= service.supplier.company_name %> </td>
-      <td> <%= service.reviews.average(:rating) %> </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr> 
+              <th> Title </th>
+              <th> Price </th>
+              <th> location </th>
+              <th> Supplier </th>
+              <th> Avg. Rating </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @services.each do |service| %> 
+            <tr>
+              <td> <%= link_to service.name, service_path(id: service.id, service_id: service.id) %> </td>
+              <td> <%= service.price %> </td>
+              <td> <%= service.location %> </td>
+              <td> <%= link_to service.supplier.company_name, supplier_path(id: service.supplier.id)%> </td>
+              <td> <%= service.reviews.average(:rating) %> </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<%= link_to "Go back", :back, class: "btn btn-secondary btn-icon-split" %>
+
+</div>

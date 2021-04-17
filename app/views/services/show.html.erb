@@ -1,43 +1,72 @@
-<h5><%= @service.name %></h5>
-<h5><%= @service.price %></h5>
-<h5><%= @service.category %></h5>
-<h5><%= @service.supplier.first_name %><%= @service.supplier.last_name %></h5>
-<h5><%= @service.supplier.contact_number %></h5>
-<h5><%= link_to @service.supplier.company_name, supplier_path(id: @service.supplier.id) %></h5>
+<div class="container-fluid">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h1 class="h3 mb-2 text-gray-800"> <%= @service.name %> </h1>
+    </div>
 
-<h3>Reviews</h3>
-<table>
-<thead>
-  <tr>
-    <th scope="col"></th>
-    <th scope="col">Title</th>
-    <th scope="col">Body</th>
-    <th scope="col">Rating</th>
-    <th scope="col">Buyer Name</th>
-    <% if buyer_signed_in? %>
-    <th scope="col"><%= link_to "Create a review", new_service_review_path(service_id: @service.id) %></th>
-    <% end %>
-  </tr>
-</thead>
-<% @reviews.each do |review| %>
-  <tbody>
-    <tr>
-      <td scope="row"></td>
-      <td><%= review.title %></td>
-      <td><%= review.body %></td>
-      <td><%= review.rating %></td>
-      <td><%= review.buyer.first_name %></td>
-      <% if buyer_signed_in? %>
-      <% if current_buyer.id == review.buyer_id %>
-      <td><%= link_to "Edit Review", edit_review_path(id: review.id) %></td>
-      <td><%= link_to "Delete Review", review_path(id: review.id), method: :delete %></td>
-      <% end %>
-      <% end %>
-    </tr>
-  </tbody>
-<% end %>
-</table>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th> Price </th>
+              <th> Category </th>
+              <th> Supplier Name <%= @service.supplier.last_name %></th>
+              <th> Contact Number </th>
+              <th> Company Name </th>
+            </tr>
+          <tbody>
+            <tr>
+              <td><%= @service.price %></td>
+              <td><%= @service.category %></td>
+              <td><%= @service.supplier.first_name %><%= @service.supplier.last_name %></td>
+              <td><%= @service.supplier.contact_number %></td>
+              <td><%= link_to @service.supplier.company_name, supplier_path(id: @service.supplier.id) %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
-<div>
-  <%= link_to "Go back", :back %>
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-dark"> Transactions </h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Body</th>
+              <th scope="col">Rating</th>
+              <th scope="col">Buyer Name</th>
+              <% if buyer_signed_in? %>
+              <th scope="col"><%= link_to "Create a review", new_service_review_path(service_id: @service.id) %></th>
+              <% end %>
+            </tr>
+          </thead>
+          <% @reviews.each do |review| %>
+          <tbody>
+            <tr>
+              <td><%= review.title %></td>
+              <td><%= review.body %></td>
+              <td><%= review.rating %></td>
+              <td><%= review.buyer.first_name %></td>
+              <% if buyer_signed_in? %>
+              <% if current_buyer.id == review.buyer_id %>
+              <td> <%= link_to "Edit Review", edit_review_path(id: review.id) %> </td>
+              <td> <%= link_to "Delete Review", review_path(id: review.id), method: :delete %></td>
+              <% end %>
+              <% end %>
+            </tr>
+          </tbody>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+  <%= link_to "Go back", :back, class: "btn btn-secondary btn-icon-split" %>
+
 </div>

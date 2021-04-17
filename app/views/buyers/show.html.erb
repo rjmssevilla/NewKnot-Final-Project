@@ -1,25 +1,38 @@
-<h1>HELLO, <%=@buyer.first_name %> <%=@buyer.last_name %></h1>
+<div class="container-fluid">
 
-<%= link_to 'My Profile', buyers_profile_path(current_buyer.id) %>
+  <h1 class="h3 mb-2 text-gray-800">HELLO, <%=@buyer.first_name %> <%=@buyer.last_name %></h1>
+  
+  <p class="mb-4">Here are some of the available services our suppliers are currently offering! Click on a category to check their available service.</p>
+  
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-dark"> Categories </h6>
+    </div>
 
-<h1> Categories </h1>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th> Category </th>
+              <th> Number of Services </th>
+              <th> Average Price (PHP) </th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @categories_array.each do |category| %>
+            <tr>
+              <td> <%= link_to category[:category], category_filter_path(category: category[:category]) %> </td>
+              <td> <%= category[:count] %> </td>
+              <td> <%= category[:average_price] %>
+            </tr>
+          </tbody>
+          <% end %>
+        </table>
+        </div>
+      </div>
+    </div>
 
-<table>
-  <thead>
-    <tr>
-      <th> Category </th>
-      <th> Number of Services </th>
-      <th> Average Price (PHP) </th>
-    </tr>
-  </thead>
-  <tbody>
-  <% @categories_array.each do |category| %>
-    <tr>
-      <td> <%= link_to category[:category], category_filter_path(category: category[:category]) %> </td>
-      <td> <%= category[:count] %> </td>
-      <td> <%= category[:average_price] %>
-    </tr>
-  </tbody>
-  <% end %>
-</table>
-<%= link_to 'Logout',  destroy_buyer_session_path, method: :delete %>
+<%= link_to 'Logout',  destroy_buyer_session_path, method: :delete, class: "btn btn-secondary btn-icon-split"%>
+
+</div>
