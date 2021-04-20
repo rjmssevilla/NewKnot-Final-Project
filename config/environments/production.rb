@@ -117,8 +117,8 @@ Rails.application.configure do
       
   
   config.action_mailer.smtp_settings = {
-    :user_name => '3ad6f88498e58c',
-    :password => 'ec78556f74d3ee',
+    :user_name => Rails.application.credentials.user_name,
+    :password => Rails.application.credentials.password,
     :address => 'smtp.mailtrap.io',
     :domain => 'smtp.mailtrap.io',
     :port => '2525',
