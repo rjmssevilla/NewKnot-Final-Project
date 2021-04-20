@@ -112,13 +112,13 @@ Rails.application.configure do
 
   config.action_mailer.perform_deliveries = true
   config.action_mailer.default :charset => "utf-8"
-  config.action_mailer.default_url_options = { :host => 'https://new-knot.herokuapp.com/' }
+  config.action_mailer.default_url_options = { :host => 'new-knot.herokuapp.com' }
   config.action_mailer.delivery_method = :smtp
       
   
   config.action_mailer.smtp_settings = {
-    :user_name => Rails.application.credentials.user_name,
-    :password => Rails.application.credentials.password,
+    :user_name => '3ad6f88498e58c',
+    :password => 'ec78556f74d3ee',
     :address => 'smtp.mailtrap.io',
     :domain => 'smtp.mailtrap.io',
     :port => '2525',
